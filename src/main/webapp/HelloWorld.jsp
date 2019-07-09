@@ -6,11 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Apache Struts2 Sample Web App</title>
+    <title>Hello World!</title>
 </head>
 <body>
-    <h1>Welcome to Struts2!</h1>
-    <br/>
-    <p><a href="<s:url action='hello'/>">Hello World</a></p>
+    <h2><s:property value="messageStore.message"/></h2>
 </body>
-</html>
+</html>  

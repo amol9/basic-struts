@@ -25,39 +25,54 @@
         </dependency>
     </dependencies>
 
-<build>
-	<plugins>	
-	<plugin>
-		<groupId>org.eclipse.jetty</groupId>
-		<artifactId>jetty-maven-plugin</artifactId>
-		<version>9.2.11.v20150529</version>
-        <configuration>
-                <webApp>
-                    <contextPath>/${project.artifactId}</contextPath>
-                </webApp>
-                <stopKey>CTRL+C</stopKey>
-                <stopPort>8999</stopPort>
-                <scanIntervalSeconds>10</scanIntervalSeconds>
-                <scanTargets>
-                    <scanTarget>src/main/webapp/WEB-INF/web.xml</scanTarget>
-                </scanTargets> 
-        </configuration>
-        <dependencies>
-            <dependency>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm</artifactId>
-                <version>6.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm-commons</artifactId>
-                <version>6.2</version>
-            </dependency>
-            <!-- added asm deps to fix the following error:
-            org.eclipse.jetty.util.MultiException: Multiple exceptions
-            at org.eclipse.jetty.annotations.AnnotationConfiguration.scanForAnnotations (AnnotationConfiguration.java:536)... -->
-        </dependencies>
-	</plugin>
-	</plugins>
-</build>
+    <properties>
+        <!-- added to fix the error: Source option 6 is no longer supported. Use 7 or later. -->
+        <maven.compiler.source>1.12</maven.compiler.source>
+        <maven.compiler.target>1.12</maven.compiler.target>
+        
+    </properties>
+
+    <build>
+        <plugins>	
+        <plugin>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <version>9.2.11.v20150529</version>
+            <configuration>
+                    <webApp>
+                        <contextPath>/${project.artifactId}</contextPath>
+                    </webApp>
+                    <stopKey>CTRL+C</stopKey>
+                    <stopPort>8999</stopPort>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <scanTargets>
+                        <scanTarget>src/main/webapp/WEB-INF/web.xml</scanTarget>
+                    </scanTargets> 
+            </configuration>
+            <dependencies>
+                <dependency>
+                    <groupId>org.ow2.asm</groupId>
+                    <artifactId>asm</artifactId>
+                    <version>7.1</version>
+                    <!-- <version>6.2</version> -->
+                    <!-- upped asm version to fix error: Unsupported class file major version 56 -->
+                </dependency>
+                <dependency>
+                    <groupId>org.ow2.asm</groupId>
+                    <artifactId>asm-commons</artifactId>
+                    <version>7.1</version>
+                    <!-- <version>6.2</version> -->
+                </dependency>
+                <!-- added asm deps to fix the following error:
+                org.eclipse.jetty.util.MultiException: Multiple exceptions
+                at org.eclipse.jetty.annotations.AnnotationConfiguration.scanForAnnotations (AnnotationConfiguration.java:536)... -->
+            </dependencies>
+        </plugin>
+        <plugin>
+            <!-- added to fix error: Source option 5 is no longer supported. Use 7 or later. -->
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.0</version>
+        </plugin>
+        </plugins>
+    </build>
 </project>
